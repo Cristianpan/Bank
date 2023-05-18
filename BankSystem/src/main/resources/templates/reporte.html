@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>BirdBank</title>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato&display=swap"
+        rel="stylesheet"
+      />
+      <link
+        rel="stylesheet"
+        href="./static/css/normalize.css"
+        th:href="@{/css/normalize.css}"
+      />
+      <link
+        rel="stylesheet"
+        href="./static/css/styles.css"
+        th:href="@{/css/styles.css}"
+      />
+    </head>
+    <body class="body">
+      <header class="header">
+        <a class="logo" href="/">
+          <img src="./img/logo.svg" alt="logo" />
+          <h1>Bird<span>Bank</span></h1>
+        </a>
+
+        <nav class="nav">
+          <a class="nav__link" href="/"> Inicio </a>
+          <a class="nav__link" href="/formCliente">Agregar Cliente</a>
+          <a class="nav__link activated" href="/reporte"> Reporte de Clientes</a>
+        </nav>
+      </header>
+
+      <main th:object="${clientes}">
+        <h2 class="report">Reporte De Clientes</h2>
+
+        <section th:each="cliente: ${clientes}" class="report">
+          <h3>Información de Cliente</h3>
+
+          <div class="client-info">
+            <div>
+              <p class="label">No. de Cliente</p>
+              <p class="info" th:text="${cliente.id}"></p>
+            </div>
+            <div>
+              <p class="label">Nombre</p>
+              <p class="info" th:text="${cliente.nombre}">Cristian David</p>
+            </div>
+            <div>
+              <p class="label">Apellidos</p>
+              <p class="info" th:text="${cliente.apellido}">Pan Zaldivar</p>
+            </div>
+            <div>
+              <p class="label">CURP</p>
+              <p class="info" th:text="${cliente.curp}">PAZC010106HYNNLRA6</p>
+            </div>
+            <div>
+              <p class="label">Fecha de Nacimiento</p>
+              <p class="info" th:text="${cliente.fechaDeNacimiento}">
+                6 de enero de 2001
+              </p>
+            </div>
+            <div>
+              <p class="label">Edad</p>
+              <p class="info" th:text="${cliente.edad}">21</p>
+            </div>
+          </div>
+
+          <div th:if="${cliente != null}" class="report">
+            <h3 class="report">Cuentas de cliente</h3>
+            <div th:each="cuenta: ${cliente.cuentas}" class="account-info">
+              <div>
+                <p class="label">No. de Cuenta</p>
+                <p class="info" th:text="${cuenta.noCuenta}">
+                  1234567891234567
+                </p>
+              </div>
+              <div>
+                <p class="label">Saldo</p>
+                <p class="info" th:text="${cuenta.saldo}">$300</p>
+              </div>
+              <div>
+                <p class="label">Fecha de Vencimiento</p>
+                <p class="info" th:text="${cuenta.fechaVencimiento}">10/28</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <button class="button-print">
+          <img src="./img/print.svg" alt="icono de imprimir">
+        </button>
+      </main>
+      <script>
+        const button = document.querySelector(".button-print");
+        button.addEventListener("click", () => {
+          window.print(); 
+        });
+
+        const error = "[[${message}]]";
+        if (error) {
+          setTimeout(() => {
+            alert(error);
+          }, 100);
+        }
+      </script>
+    </body>
+  </html>
+</html>

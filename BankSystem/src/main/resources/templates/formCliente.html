@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BirdBank</title>
+    <link
+      rel="stylesheet"
+      href="./static/css/normalize.css"
+      th:href="@{/css/normalize.css}"
+    />
+    <link
+      rel="stylesheet"
+      href="./static/css/styles.css"
+      th:href="@{/css/styles.css}"
+    />
+  </head>
+  <body class="body">
+    <header class="header">
+      <a class="logo" href="/">
+        <img th:src="@{/img/logo.svg}" alt="logo" />
+        <h1>Bird<span>Bank</span></h1>
+      </a>
+
+      <nav class="nav">
+        <a class="nav__link" href="/"> Inicio </a>
+        <a class="nav__link activated" href="/formCliente"> Agregar Cliente</a>
+        <a class="nav__link" href="/reporte"> Reporte de Clientes</a>
+      </nav>
+    </header>
+
+    <main>
+      <h2>Agregar Cliente</h2>
+      <form
+        th:objetc="${cliente}"
+        th:action="'/formCliente' + ${cliente.id != null ? '/' + cliente.id : ''}"
+        method="post"
+        class="client-form"
+      >
+        <div>
+          <label class="form-label" for="nombre">Nombre</label>
+          <input
+            id="nombre"
+            name="nombre"
+            th:field="${cliente.nombre}"
+            class="form-input input"
+            type="text"
+            required
+            placeholder="Cristian David"
+          />
+        </div>
+        <div>
+          <label class="form-label" for="apellidos">Apellidos</label>
+          <input
+            id="apellido"
+            name="apellido"
+            th:field="${cliente.apellido}"
+            class="form-input input"
+            type="text"
+            required
+            placeholder="Pan Zaldivar"
+          />
+        </div>
+        <div class="grid">
+          <div>
+            <label class="form-label" for="fechaDeNacimiento"
+              >Fecha de Nacimiento</label
+            >
+            <input
+              id="fechaDeNacimiento"
+              name="fechaDeNacimiento"
+              th:field="${cliente.fechaDeNacimiento}"
+              class="form-input input"
+              type="date"
+              required
+            />
+          </div>
+          <div>
+            <label class="form-label" for="edad">Edad</label>
+            <input
+              id="edad"
+              name="edad"
+              th:field="${cliente.edad}"
+              class="form-input input"
+              type="number"
+              required
+              placeholder="21"
+            />
+          </div>
+        </div>
+        <div>
+          <label class="form-label" for="">CURP</label>
+          <input
+            id="curp"
+            name="curp"
+            th:field="${cliente.curp}"
+            class="form-input input"
+            type="text"
+            required
+            placeholder="PAZC010106HYNNLRA6"
+          />
+        </div>
+
+        <div class="buttons-form">
+          <a th:href="'/' + ${cliente.curp != null ? cliente.curp : ''}"
+            >Cancelar</a
+          >
+          <input type="submit" value="Guardar" />
+        </div>
+      </form>
+    </main>
+    <script>
+      const error = "[[${error}]]";
+      if (error) {
+        setTimeout(() => {
+          alert(error);
+        }, 100);
+      }
+    </script>
+  </body>
+</html>
