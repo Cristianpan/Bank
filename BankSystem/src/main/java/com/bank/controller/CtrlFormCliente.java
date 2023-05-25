@@ -28,11 +28,11 @@ public class CtrlFormCliente {
         return "formCliente";
     }
 
-    @GetMapping("/formCliente/{id}")
-    public String formCliente(Model model, @PathVariable(name = "id") String id, HttpServletRequest request,
+    @GetMapping("/formCliente/{idCliente}")
+    public String getClientePorId(Model model, @PathVariable(name = "idCliente") String idCliente, HttpServletRequest request,
             RedirectAttributes redirect) {
         try {
-            cliente = daoCliente.getClienteById(id);
+            cliente = daoCliente.getClienteById(idCliente);
             model.addAttribute("cliente", cliente);
         } catch (Exception e) {
             redirect.addFlashAttribute("error", e.getMessage());
@@ -71,10 +71,10 @@ public class CtrlFormCliente {
         return "redirect:/" + curp;
     }
 
-    @PostMapping("/formCliente/{id}")
-    public String actualizarCliente(@RequestParam String nombre, @RequestParam String apellido,
+    @PostMapping("/formCliente/{clienteId}")
+    public String actualizarDatosCliente(@RequestParam String nombre, @RequestParam String apellido,
             @RequestParam String fechaDeNacimiento, @RequestParam Integer edad, @RequestParam String curp,
-            @PathVariable(name = "id") String id,
+            @PathVariable(name = "clienteId") String clienteId,
             Model model, RedirectAttributes redirect, HttpServletRequest request) {
         try {
             ClientValidation.validarDatosCliente(nombre, apellido, curp);
@@ -83,7 +83,7 @@ public class CtrlFormCliente {
             }
 
             cliente = Cliente.builder()
-                    .id(id)
+                    .id(clienteId)
                     .nombre(nombre)
                     .apellido(apellido)
                     .fechaDeNacimiento(fechaDeNacimiento)

@@ -17,7 +17,7 @@ import com.bank.validators.BalanceValidation;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
-public class CtrlIndex {
+public class CtrlInicio {
     @Autowired
     private DaoCliente daoCliente;
     @Autowired
@@ -30,7 +30,7 @@ public class CtrlIndex {
     }
 
     @GetMapping("/{curp}")
-    public String index(Model model, @PathVariable(name = "curp") String curp) {
+    public String getClientePorCurp(Model model, @PathVariable(name = "curp") String curp) {
         try {
             Cliente cliente = daoCliente.getClienteByCurp(curp);
             if (cliente == null) {
